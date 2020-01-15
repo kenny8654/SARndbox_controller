@@ -32,13 +32,20 @@ app.post('/modifyHeight',function(req,res){
 	});
 
 	runcmd()
-  //cmd('killall',['SARndbox'])
-	//cmd('ls',['al'])
-	//cmd('../SARndbox',['-uhm'])
-  //var callfile = require('child_process');
-	//callfile.execFile('shell.sh')
 	return res.sendStatus(200)
 });
+
+app.get('/turnOn',function(req,res){
+	console.log('on')
+	cmd('../SARndbox',['-uhm'])
+	return res.sendStatus(200)
+});
+
+app.get('/turnOff',function(req,res){
+	console.log('off')
+  cmd('killall',['SARndbox'])
+});
+
 
 async function runcmd(){
 	await cmd('killall',['SARndbox'])
@@ -48,9 +55,6 @@ async function runcmd(){
 
 function cmd(c,p){
 		
-	// 執行 ls -lh 指令：
-	//var ls_var = spawn('killall', ['SARndbox']);
-	//var editor = process.env.EDITOR || './bin/SARndbox';
 	var ls_var = spawn(c, p);
 	ls_var.stdout.on('data', function(data){
   	console.log('stdout: ' + data);

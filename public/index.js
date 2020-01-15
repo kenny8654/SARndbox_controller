@@ -11,6 +11,28 @@ function lower(){
 	modifyHeight(-1)
 }
 
+function on(){
+  $.ajax({
+    url: "/turnOn",
+    type: "GET",
+		error: function () {
+    	console.log("Error in ajax")
+		}
+	});	
+}
+
+
+function off(){
+  $.ajax({
+    url: "/turnOff",
+    type: "GET",
+		error: function (xhr, status, error) {
+    	console.log("Error in ajax")
+			console.log(error)
+		}
+	});	
+}
+
 $( document ).ready(function() {
 	getHeight();
 });
