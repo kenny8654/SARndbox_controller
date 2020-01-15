@@ -49,6 +49,7 @@ app.get('/turnOff',function(req,res){
 
 async function runcmd(){
 	await cmd('killall',['SARndbox'])
+	await cmd('KinectUtil',['reset','all'])
   await cmd('../SARndbox',['-uhm'])
 	
 }
