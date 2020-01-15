@@ -37,7 +37,7 @@ app.post('/modifyHeight',function(req,res){
 
 app.get('/turnOn',function(req,res){
 	console.log('on')
-	cmd('../SARndbox',['-uhm'])
+	turnOn()
 	return res.sendStatus(200)
 });
 
@@ -46,6 +46,10 @@ app.get('/turnOff',function(req,res){
   cmd('killall',['SARndbox'])
 });
 
+async function turnOn(){	
+	await cmd('KinectUtil',['reset','all'])
+	await cmd('../SARndbox',['-uhm'])
+}
 
 async function runcmd(){
 	await cmd('killall',['SARndbox'])
