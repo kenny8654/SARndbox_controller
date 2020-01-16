@@ -47,12 +47,19 @@ app.get('/turnOn',function(req,res){
 app.get('/turnOff',function(req,res){
 	console.log('off')
   cmd('killall',['SARndbox'])
+  cmd('killall',['SARndbox'])
 });
 
 
 app.get('/shutDown',function(req,res){
 	console.log('off')
   cmd('shutdown',['-h','now'])
+});
+
+
+app.get('/reboot',function(req,res){
+	console.log('reboot')
+  cmd('reboot',[''])
 });
 
 app.get('/getModeName',function(req,res){	
@@ -72,6 +79,7 @@ app.post('/modifyMode',function(req,res){
 
 async function turnOn(){	
   await cmd('killall',['-w','SARndbox'])
+  await cmd('killall',['SARndbox'])
 	await cmd('KinectUtil',['reset','all'])
 	await cmd('../SARndbox',['-uhm'])
 	await setTimeout(function(){robot.keyTap("f12"); }, 2000);
@@ -79,6 +87,7 @@ async function turnOn(){
 
 async function runcmd(){
 	await cmd('killall',['-w','SARndbox'])
+  await cmd('killall',['SARndbox'])
 	await cmd('KinectUtil',['reset','all'])
   await cmd('../SARndbox',['-uhm'])	
 	await setTimeout(function(){robot.keyTap("f12"); }, 2000);

@@ -1,4 +1,4 @@
 #!/bin/sh
 
-ls
-../SARndbox -uhm
+cd /home/user/src/SARndbox-2.3/bin/SARndbox_controller
+node app.js

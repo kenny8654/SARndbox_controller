@@ -41,6 +41,17 @@ function shutdown(){
 	});	
 }
 
+function reboot(){
+  $.ajax({
+    url: "/reboot",
+    type: "GET",
+		error: function (xhr, status, error) {
+    	console.log("Error in ajax")
+			console.log(error)
+		}
+	});	
+}
+
 function mode1(){
   modifyMode(1);
 }
