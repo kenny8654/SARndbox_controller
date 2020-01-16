@@ -3,6 +3,7 @@ const app = express();
 const fs = require('fs');
 const bodyParser = require('body-parser')
 const spawn = require('child_process').spawn;
+const robot = require("robotjs");
 
 const url = "/home/user/src/SARndbox-2.3/etc/SARndbox-2.3/BoxLayout.txt"
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -49,13 +50,14 @@ app.get('/turnOff',function(req,res){
 async function turnOn(){	
 	await cmd('KinectUtil',['reset','all'])
 	await cmd('../SARndbox',['-uhm'])
+	await setTimeout(function(){robot.keyTap("f12"); }, 2000);
 }
 
 async function runcmd(){
 	await cmd('killall',['SARndbox'])
 	await cmd('KinectUtil',['reset','all'])
-  await cmd('../SARndbox',['-uhm'])
-	
+  await cmd('../SARndbox',['-uhm'])	
+	await setTimeout(function(){robot.keyTap("f12"); }, 2000);
 }
 
 function cmd(c,p){
