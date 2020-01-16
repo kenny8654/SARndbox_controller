@@ -6,6 +6,7 @@ const spawn = require('child_process').spawn;
 const robot = require("robotjs");
 
 const url = "/home/user/src/SARndbox-2.3/etc/SARndbox-2.3/BoxLayout.txt"
+var m = main()
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use('/public', express.static(__dirname + '/public'));
@@ -47,14 +48,36 @@ app.get('/turnOff',function(req,res){
   cmd('killall',['SARndbox'])
 });
 
+
+app.get('/shutDown',function(req,res){
+	console.log('off')
+  cmd('shutdown',['-h','now'])
+});
+
+app.get('/getModeName',function(req,res){	
+  var modeNameUrl = "/home/user/src/SARndbox-2.3/etc/SARndbox-2.3/ColorMapMode/map.txt"
+	var data = fs.readFileSync(modeNameUrl,'utf8');  
+  console.log(data)
+	return res.end(data)
+});
+
+app.post('/modifyMode',function(req,res){
+  console.log("modifyMode : " + req.body.mode)
+  var modeUrl = "/home/user/src/SARndbox-2.3/etc/SARndbox-2.3/ColorMapMode/HeightColorMap"+req.body.mode+".cpt"
+	var mode = "/home/user/src/SARndbox-2.3/etc/SARndbox-2.3/HeightColorMap.cpt"
+	cmd('cp',[modeUrl,mode])
+  turnOn();
+});
+
 async function turnOn(){	
+  await cmd('killall',['-w','SARndbox'])
 	await cmd('KinectUtil',['reset','all'])
 	await cmd('../SARndbox',['-uhm'])
 	await setTimeout(function(){robot.keyTap("f12"); }, 2000);
 }
 
 async function runcmd(){
-	await cmd('killall',['SARndbox'])
+	await cmd('killall',['-w','SARndbox'])
 	await cmd('KinectUtil',['reset','all'])
   await cmd('../SARndbox',['-uhm'])	
 	await setTimeout(function(){robot.keyTap("f12"); }, 2000);
@@ -81,4 +104,8 @@ function cmd(c,p){
 	ls_var.on('exit', function(code){
   	console.log('exited with code ' + code);
 	});
+}
+
+function main(){
+  turnOn();
 }
