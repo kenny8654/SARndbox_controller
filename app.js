@@ -10,6 +10,7 @@ var m = main()
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use('/public', express.static(__dirname + '/public'));
+app.use('/semantic', express.static(__dirname + '/semantic'));
 app.use('/node_modules/jquery/dist', express.static(__dirname + '/node_modules/jquery/dist'));
 app.listen(8080, function () {
 	console.log('app is running on port 8080!');}
