@@ -48,7 +48,7 @@ app.get('/turnOn',function(req,res){
 app.get('/turnOff',function(req,res){
 	console.log('off')
   cmd('killall',['SARndbox'])
-  cmd('killall',['SARndbox'])
+  cmd('killall',['-9','SARndbox'])
 });
 
 
@@ -76,10 +76,11 @@ app.post('/modifyMode',function(req,res){
 	var mode = "/home/user/src/SARndbox-2.3/etc/SARndbox-2.3/HeightColorMap.cpt"
 	cmd('cp',[modeUrl,mode])
   turnOn();
+	return res.sendStatus(200)
 });
 
 async function turnOn(){	
-  await cmd('killall',['-w','SARndbox'])
+  await cmd('killall',['-9','-w','SARndbox'])
   await cmd('killall',['SARndbox'])
 	await cmd('KinectUtil',['reset','all'])
 	await cmd('../SARndbox',['-uhm'])
@@ -87,7 +88,7 @@ async function turnOn(){
 }
 
 async function runcmd(){
-	await cmd('killall',['-w','SARndbox'])
+	await cmd('killall',['-9','-w','SARndbox'])
   await cmd('killall',['SARndbox'])
 	await cmd('KinectUtil',['reset','all'])
   await cmd('../SARndbox',['-uhm'])	
@@ -117,6 +118,6 @@ function cmd(c,p){
 	});
 }
 
-function main(){
-  turnOn();
+function main(){ 
+	//turnOn();
 }

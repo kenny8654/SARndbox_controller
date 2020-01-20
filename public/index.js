@@ -136,6 +136,7 @@ function getModeName(){
 }
 
 function modifyMode(mode){
+  console.log('modifyMode : '+mode)
   $.ajax({
     url: "/modifyMode",
     type: "POST",
@@ -144,7 +145,7 @@ function modifyMode(mode){
 		},
     success: function (txt) {
 			console.log(txt);	
-      document.getElementById("mode_info").innerHTML = "目前模式 : " + modeList[mode]
+      document.getElementById("mode_info").innerHTML = "目前模式 : " + modeList[mode-1]
     },
     error: function (xhr, status, error) {
     	console.log("Error in ajax")
