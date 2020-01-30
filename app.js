@@ -80,7 +80,9 @@ app.post('/modifyMode',function(req,res){
 });
 
 async function turnOn(){	
+  await cmd('killall',['SARndbox'])
   await cmd('killall',['-9','-w','SARndbox'])
+  await cmd('killall',['-9','SARndbox'])
   await cmd('killall',['SARndbox'])
 	await cmd('KinectUtil',['reset','all'])
 	await cmd('../SARndbox',['-uhm'])
@@ -88,19 +90,25 @@ async function turnOn(){
 }
 
 async function runcmd(){
+  await cmd('killall',['SARndbox'])
 	await cmd('killall',['-9','-w','SARndbox'])
+  await cmd('killall',['-9','SARndbox'])	
   await cmd('killall',['SARndbox'])
 	await cmd('KinectUtil',['reset','all'])
   await cmd('../SARndbox',['-uhm'])	
 	await setTimeout(function(){robot.keyTap("f12"); }, 2000);
 }
 
-function cmd(c,p){
+async function cmd(c,p){
 		
 	var ls_var = spawn(c, p);
-	ls_var.stdout.on('data', function(data){
+	await ls_var.stdout.on('data', function(data){
   	console.log('stdout: ' + data);
 	});
+
+	ls_var.stderr.on('data', function (data) {
+    console.log('stderr: ' + data);
+  });
 
 	// 監聽 error 事件：
 	ls_var.on('error', function(code){

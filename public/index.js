@@ -1,15 +1,20 @@
 var info , height ,modeList
-function higher(){
+async function higher(){
   console.log('higher')
-	modifyHeight(1)
+	await getHeight()
+	await modifyHeight(1)
+  await getHeight()
 }
 
-function lower(){
+async function lower(){
 	console.log('lower')	
-	modifyHeight(-1)
+	await getHeight()
+	await modifyHeight(-1)
+  await getHeight()
 }
 
 function on(){
+  getHeight();
   $.ajax({
     url: "/turnOn",
     type: "GET",
