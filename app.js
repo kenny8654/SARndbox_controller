@@ -27,15 +27,18 @@ app.get('/getHeight',function(req,res){
 });
 
 app.post('/modifyHeight',function(req,res){
+	console.log('modify height');
 	console.log('info : '+req.body.info)
 	fs.writeFile(url, req.body.info , function (err) {
     if(err)
         console.log(err);
-    else
+    else{	
         console.log('Write operation complete.');
+				//runcmd()
+				turnOn()
+		}
 	});
 
-	runcmd()
 	return res.sendStatus(200)
 });
 
@@ -59,7 +62,7 @@ app.get('/shutDown',function(req,res){
 
 
 app.get('/reboot',function(req,res){
-	console.log('reboot')
+	console.log('systemctl',['reboot'])
   cmd('reboot',[''])
 });
 
@@ -74,41 +77,50 @@ app.post('/modifyMode',function(req,res){
   console.log("modifyMode : " + req.body.mode)
   var modeUrl = "/home/user/src/SARndbox-2.3/etc/SARndbox-2.3/ColorMapMode/HeightColorMap"+req.body.mode+".cpt"
 	var mode = "/home/user/src/SARndbox-2.3/etc/SARndbox-2.3/HeightColorMap.cpt"
-	cmd('cp',[modeUrl,mode])
-  turnOn();
+	cmd('cp',[modeUrl,mode]).then(turnOn())
+  //turnOn();
 	return res.sendStatus(200)
 });
 
 async function turnOn(){	
-  await cmd('killall',['SARndbox'])
+  //await cmd('killall',['SARndbox'])
+	//await cmd('killall',['KinectUtil'])
   await cmd('killall',['-9','-w','SARndbox'])
-  await cmd('killall',['-9','SARndbox'])
-  await cmd('killall',['SARndbox'])
-	await cmd('KinectUtil',['reset','all'])
-	await cmd('../SARndbox',['-uhm'])
+  //await cmd('killall',['-9','SARndbox'])
+  //await cmd('killall',['SARndbox'])
+	//await cmd('KinectUtil',['reset','all'])
+	//await cmd('../SARndbox',['-uhm'])
+  await setTimeout(function(){cmd('killall',['SARndbox']); }, 500);
+  await setTimeout(function(){cmd('KinectUtil',['reset','all']); }, 800);
+  await setTimeout(function(){cmd('KinectUtil',['reset','all']); }, 1000);
+  await setTimeout(function(){cmd('../SARndbox',['-uhm']); }, 1500);
 	await setTimeout(function(){robot.keyTap("f12"); }, 2000);
+
 }
 
 async function runcmd(){
-  await cmd('killall',['SARndbox'])
+  //await cmd('killall',['SARndbox'])
+	//await cmd('killall',['KinectUtil'])
 	await cmd('killall',['-9','-w','SARndbox'])
-  await cmd('killall',['-9','SARndbox'])	
-  await cmd('killall',['SARndbox'])
+  //await cmd('killall',['-9','SARndbox'])	
+  //await cmd('killall',['SARndbox'])
 	await cmd('KinectUtil',['reset','all'])
   await cmd('../SARndbox',['-uhm'])	
 	await setTimeout(function(){robot.keyTap("f12"); }, 2000);
 }
 
 async function cmd(c,p){
-		
+  console.log('cmd runnung : '+ c + p)	
 	var ls_var = spawn(c, p);
 	await ls_var.stdout.on('data', function(data){
   	console.log('stdout: ' + data);
+		return 0
 	});
 
 	ls_var.stderr.on('data', function (data) {
     console.log('stderr: ' + data);
-  });
+    return 0
+	});
 
 	// 監聽 error 事件：
 	ls_var.on('error', function(code){
@@ -118,6 +130,7 @@ async function cmd(c,p){
 	// 監聽 close 事件：
 	ls_var.on('close', function(code){
   	console.log('closed with code ' + code);
+
 	});
 
 	// 監聽 exit 事件：
