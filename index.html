@@ -1,15 +1,22 @@
 <html>
+
 <head>
 	<title>SandBox</title>
 </head>
 <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+
 <body>
-	
+
 	<div class="ui grid">
+
 		<div class="four wide column" style="background:black; color: #FFF; padding-left:30px; padding-top: 20px;">
 			<h1>SARndbox</h1>
 		</div>
 		<div class="twelve wide column" style="background:black"></div>
+
+		<div id="dimmer" class="ui disabled dimmer">
+			<div class="ui text loader">Loading</div>
+		</div>
 
 		<div class="ui center aligned two column row">
 			<h1 class="column" id="height_info">目前高度: -101</h1>
@@ -25,7 +32,7 @@
 		<div class="six wide column">
 			<button class="fluid ui massive button" onclick="lower()">下降</button>
 		</div>
-		
+
 		<div class="four wide column">
 			<h1 class="ui center aligned">沙盒開關</h1>
 		</div>
@@ -45,10 +52,10 @@
 		<div class="six wide column">
 			<button class="fluid ui massive button" onclick="reboot()">重新開機</button>
 		</div>
-		
+
 		<div class="four wide column">
 			<h1 class="ui center aligned">模式選擇</h1>
-		</div>	
+		</div>
 		<div class="twelve wide column">
 			<div class="five ui basic buttons">
 				<button class="ui huge button" id="mode1" onclick="mode1()">mode 1</button>
@@ -62,7 +69,7 @@
 
 	<script src="/node_modules/jquery/dist/jquery.min.js"></script>
 	<script src="semantic/dist/semantic.min.js"></script>
-	 <script src="./public/index.js"></script>
+	<script src="./public/index.js"></script>
 </body>
 
 </html>
