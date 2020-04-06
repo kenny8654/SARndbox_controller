@@ -96,7 +96,7 @@ async function turnOn() {
 	await setTimeout(function () { cmd('KinectUtil', ['reset', 'all']); }, 800);
 	await setTimeout(function () { cmd('KinectUtil', ['reset', 'all']); }, 1300);
 	await setTimeout(function () { cmd('../SARndbox', ['-uhm']); }, 2000);
-	await setTimeout(function () { robot.keyTap("f12"); }, 4000);
+	await setTimeout(function () { robot.keyTap("f11"); }, 4000);
 
 }
 
@@ -108,7 +108,7 @@ async function runcmd() {
 	//await cmd('killall',['SARndbox'])
 	await cmd('KinectUtil', ['reset', 'all'])
 	await cmd('../SARndbox', ['-uhm'])
-	await setTimeout(function () { robot.keyTap("f12"); }, 2000);
+	await setTimeout(function () { robot.keyTap("f11"); }, 2000);
 }
 
 async function cmd(c, p) {
