@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd /home/user/src/SARndbox-2.3/bin
+cd /home/user/src/SARndbox-2.7/bin
 sudo apt-get install git
 sudo apt-get install libxtst-dev libpng++-dev
 sudo apt update
