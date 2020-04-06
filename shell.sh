@@ -14,6 +14,8 @@ npm install gulp-print@5.0.0
 npm install
 cd semantic/
 gulp build
+sudo chmod u+s /sbin/reboot
+sudo chmod u+s /sbin/shutdown
 npm install -g pm2
 pm2 start app.js -i 1 --watch
 pm2 startup
