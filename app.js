@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const spawn = require('child_process').spawn;
 const robot = require("robotjs");
 
-const url = "/home/user/src/SARndbox-2.3/etc/SARndbox-2.3/BoxLayout.txt"
+const url = "/home/user/src/SARndbox-2.7/etc/SARndbox-2.7/BoxLayout.txt"
 var m = main()
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -68,7 +68,7 @@ app.get('/reboot', function (req, res) {
 });
 
 app.get('/getModeName', function (req, res) {
-	var modeNameUrl = "/home/user/src/SARndbox-2.3/etc/SARndbox-2.3/ColorMapMode/map.txt"
+	var modeNameUrl = "/home/user/src/SARndbox-2.7/etc/SARndbox-2.7/ColorMapMode/map.txt"
 	var data = fs.readFileSync(modeNameUrl, 'utf8');
 	console.log(data)
 	return res.end(data)
@@ -76,8 +76,8 @@ app.get('/getModeName', function (req, res) {
 
 app.post('/modifyMode', function (req, res) {
 	console.log("modifyMode : " + req.body.mode)
-	var modeUrl = "/home/user/src/SARndbox-2.3/etc/SARndbox-2.3/ColorMapMode/HeightColorMap" + req.body.mode + ".cpt"
-	var mode = "/home/user/src/SARndbox-2.3/etc/SARndbox-2.3/HeightColorMap.cpt"
+	var modeUrl = "/home/user/src/SARndbox-2.7/etc/SARndbox-2.7/ColorMapMode/HeightColorMap" + req.body.mode + ".cpt"
+	var mode = "/home/user/src/SARndbox-2.7/etc/SARndbox-2.7/HeightColorMap.cpt"
 	cmd('cp', [modeUrl, mode]).then(turnOn())
 	//turnOn();
 	return res.sendStatus(200)
