@@ -96,7 +96,7 @@ async function turnOn() {
 	await setTimeout(function () { cmd('KinectUtil', ['reset', 'all']); }, 800);
 	await setTimeout(function () { cmd('KinectUtil', ['reset', 'all']); }, 1300);
 	await setTimeout(function () { cmd('/home/user/src/SARndbox-2.7/bin/SARndbox', ['-uhm']); }, 2000);
-	await setTimeout(function () { robot.keyTap("f11"); }, 4000);
+	await setTimeout(function () { robot.keyTap("f11"); }, 5000);
 
 }
 
